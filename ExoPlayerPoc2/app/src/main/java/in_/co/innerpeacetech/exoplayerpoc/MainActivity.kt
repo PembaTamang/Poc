@@ -10,6 +10,7 @@ import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.offline.DownloadRequest
 import com.google.android.exoplayer2.offline.DownloadService
+import com.google.android.exoplayer2.source.DefaultMediaSourceFactory
 import com.google.android.exoplayer2.upstream.DataSource
 import com.google.android.exoplayer2.upstream.cache.CacheDataSource
 import com.google.android.material.button.MaterialButton
@@ -60,27 +61,27 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun initForDownloads() {
-        val player: SimpleExoPlayer = SimpleExoPlayer.Builder(applicationContext).build()
+        val player1: SimpleExoPlayer = SimpleExoPlayer.Builder(applicationContext).build()
         val mediaItem: MediaItem =
             MediaItem.fromUri("https://file-examples-com.github.io/uploads/2017/11/file_example_MP3_700KB.mp3")
         // Set the media item to be played.
-        player.setMediaItem(mediaItem);
+        player1.setMediaItem(mediaItem);
 // Prepare the player.
-        player.prepare();
+        player1.prepare();
 // Start the playback.
-        player.play();
+        player1.play();
 
-        val cacheDataSourceFactory: DataSource.Factory =
-         CacheDataSource.Factory ()
-            .setCache(downloadCache)
-            .setUpstreamDataSourceFactory(httpDataSourceFactory)
-            .setCacheWriteDataSinkFactory(null); // Disable writing.
+      /*  val cacheDataSourceFactory: DataSource.Factory =
+            CacheDataSource.Factory()
+                .setCache(downloadCache)
+                .setUpstreamDataSourceFactory(httpDataSourceFactory)
+                .setCacheWriteDataSinkFactory(null); // Disable writing.
 
-        SimpleExoPlayer player = new SimpleExoPlayer.Builder(context)
+        val player = SimpleExoPlayer.Builder(applicationContext)
             .setMediaSourceFactory(
-                new DefaultMediaSourceFactory (cacheDataSourceFactory)
+                DefaultMediaSourceFactory(cacheDataSourceFactory)
             )
-            .build()
+            .build()*/
     }
 
     fun doManualDownload() {
