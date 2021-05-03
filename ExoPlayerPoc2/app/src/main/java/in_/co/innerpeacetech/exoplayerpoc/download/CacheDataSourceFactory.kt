@@ -1,13 +1,12 @@
 package in_.co.innerpeacetech.exoplayerpoc.download
 
 import android.content.Context
-import com.google.android.exoplayer2.upstream.DataSink
-import com.google.android.exoplayer2.upstream.DataSource
-import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
-import com.google.android.exoplayer2.upstream.FileDataSource
+import com.google.android.exoplayer2.upstream.*
 import com.google.android.exoplayer2.upstream.cache.CacheDataSource
+import com.google.android.exoplayer2.upstream.cache.CacheKeyFactory
 import com.google.android.exoplayer2.util.Util
 import in_.co.innerpeacetech.exoplayerpoc.AudioCache
+import in_.co.innerpeacetech.exoplayerpoc.songurl
 
 class MyCacheDataSourceFactory constructor(
     private val context: Context,
@@ -17,7 +16,7 @@ class MyCacheDataSourceFactory constructor(
     DataSource.Factory {
     private val defaultDatasourceFactory: DefaultDataSourceFactory = DefaultDataSourceFactory(
         context,
-        Util.getUserAgent(context, "ExoPlayerCache")
+        Util.getUserAgent(context, "exo")
     )
 
     override fun createDataSource(): DataSource {
@@ -29,7 +28,8 @@ class MyCacheDataSourceFactory constructor(
             CacheDataSource.FLAG_BLOCK_ON_CACHE or CacheDataSource.FLAG_IGNORE_CACHE_ON_ERROR,
             listener
         )
-
+        val dataSpec = DataSpec.Builder().setKey("mykey").setUri("mkey")
+        dataSource.cacheKeyFactory.buildCacheKey(dataSpec.build())
         return MyCacheDataSource(dataSource,context)
     }
 

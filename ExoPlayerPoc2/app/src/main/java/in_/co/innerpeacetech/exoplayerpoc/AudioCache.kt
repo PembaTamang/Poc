@@ -15,10 +15,11 @@ class AudioCache {
 
         fun getInstance(context: Context): SimpleCache? {
             if (sDownloadCache == null) sDownloadCache = SimpleCache(
-                File(context.getCacheDir(), "exoCache"),
+                File(context.cacheDir, "exoCache"),
                 NoOpCacheEvictor(),
                 ExoDatabaseProvider(context)
             )
+
             return sDownloadCache
         }
 
